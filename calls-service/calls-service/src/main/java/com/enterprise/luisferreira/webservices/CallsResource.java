@@ -71,10 +71,9 @@ public class CallsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/retrieve")
-    public String deleteCall(@QueryParam("limit") int limit,
+    public String getCall(@QueryParam("limit") int limit,
                              @QueryParam("offset") int offset,
                              @QueryParam("callType") final CallType callType) {
-        LOG.info("Retrieving calls for the type={}", callType.getType());
         callsService.retrieveCalls(limit, offset, callType);
         return MessageType.SUCCESS.getMessage();
     }

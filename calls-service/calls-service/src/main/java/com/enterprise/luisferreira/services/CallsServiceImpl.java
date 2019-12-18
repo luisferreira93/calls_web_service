@@ -5,6 +5,7 @@ import com.enterprise.luisferreira.utils.CallList;
 import com.enterprise.luisferreira.utils.CallType;
 import com.enterprise.luisferreira.webservices.CallsResource;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,41 +16,44 @@ import java.util.List;
 @ApplicationScoped
 public class CallsServiceImpl implements CallsService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CallsServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CallsServiceImpl.class);
 
 
-    @Transactional
-    @Override
-    public void processCalls(CallList calls) {
-        for(Call call : calls.getCalls()){
-            createCall(call);
-        }
+  @Transactional
+  @Override
+  public void processCalls(CallList calls) {
+    for (Call call : calls.getCalls()) {
+      createCall(call);
+    }
+  }
+
+  @Transactional
+  @Override
+  public void deleteCall(Long callId) {
+    final Call call = Call.findById(callId);
+
+    if (call == null) {
+      //throw exception
     }
 
-    @Transactional
-    @Override
-    public void deleteCall(Long callId){
-        final Call call = Call.findById(callId);
+    call.delete();
+  }
 
-        if (call == null){
-            //throw exception
-        }
+  @Override
+  public List<Call> retrieveCalls(int limit, int offset, CallType callType) {
+    System.out.println(retrieveCallList(callType));
+    return null;
+  }
 
-        call.delete();
-    }
+  private List<Call> retrieveCallList(CallType callType) {
+    return callType != null ? Call.list("call_type", callType.getType())
+                            : Call.findAll().list();
+  }
 
-    @Override
-    public List<Call> retrieveCalls(int limit, int offset, CallType callType) {
-        List<Call> calls = Call.list("call_type", callType.getType());
-        LOG.info(calls.toString());
-        return null;
-    }
+  private void createCall(Call call) {
+    PanacheEntityBase.persist(
+        new Call(call.getCallerNumber(), call.getCalleeNumber(), call.getStartTimestamp(),
+            call.getEndTimestamp(), call.getCallType()));
+  }
 
-    private void createCall(Call call){
-        PanacheEntityBase.persist(new Call(call.getCallerNumber(),
-                call.getCalleeNumber(),
-                call.getStartTimestamp(),
-                call.getEndTimestamp(),
-                call.getCallType()));
-    }
 }
