@@ -3,6 +3,7 @@ package com.enterprise.luisferreira.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
 public class DayStatistics {
 
     @JsonProperty("day")
-    private Date day;
+    private LocalDate day;
 
     @JsonProperty("typeDurations")
     Map<String, Long> typeDurations;
@@ -42,7 +43,7 @@ public class DayStatistics {
     /**
      * Gets the value of the day property.
      */
-    public Date getDay() {
+    public LocalDate getDay() {
         return day;
     }
 
@@ -50,9 +51,9 @@ public class DayStatistics {
      * Sets the value of the day property.
      *
      * @param day allowed object is
-     *              {@link Date }
+     *            {@link Date }
      */
-    public void setDay(Date day) {
+    public void setDay(LocalDate day) {
         this.day = day;
     }
 
@@ -67,7 +68,7 @@ public class DayStatistics {
      * Sets the value of the typeDurations property.
      *
      * @param typeDurations allowed object is
-     *              {@link Map }
+     *                      {@link Map }
      */
     public void setTypeDurations(Map<String, Long> typeDurations) {
         this.typeDurations = typeDurations;
@@ -84,7 +85,7 @@ public class DayStatistics {
      * Sets the value of the totalCalls property.
      *
      * @param totalCalls allowed object is
-     *              {@link Integer }
+     *                   {@link Integer }
      */
     public void setTotalCalls(int totalCalls) {
         this.totalCalls = totalCalls;
@@ -101,7 +102,7 @@ public class DayStatistics {
      * Sets the value of the callerNumberCalls property.
      *
      * @param callerNumberCalls allowed object is
-     *              {@link Map }
+     *                          {@link Map }
      */
     public void setCallerNumberCalls(Map<String, Long> callerNumberCalls) {
         this.callerNumberCalls = callerNumberCalls;
@@ -118,7 +119,7 @@ public class DayStatistics {
      * Sets the value of the calleeNumberCalls property.
      *
      * @param calleeNumberCalls allowed object is
-     *              {@link Map }
+     *                          {@link Map }
      */
     public void setCalleeNumberCalls(Map<String, Long> calleeNumberCalls) {
         this.calleeNumberCalls = calleeNumberCalls;
@@ -135,7 +136,7 @@ public class DayStatistics {
      * Sets the value of the totalCost property.
      *
      * @param totalCost allowed object is
-     *              {@link Double }
+     *                  {@link Double }
      */
     public void setTotalCost(Double totalCost) {
         this.totalCost = totalCost;
@@ -144,7 +145,7 @@ public class DayStatistics {
     /**
      * Auxiliary method to increment the property totalCalls.
      */
-    public void incrementCall(){
+    public void incrementCall() {
         this.totalCalls++;
     }
 

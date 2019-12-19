@@ -8,9 +8,9 @@ import javax.ws.rs.core.Application;
 @OpenAPIDefinition(
 
         info = @Info(
-                title= "Calls Web Service",
+                title = "Calls Web Service",
                 description = "The goal of the following service is to manage a specific resource: Calls",
-                version= "1.0.0"
+                version = "1.0.0"
         ))
 public class CallsServiceApplication extends Application {
 }

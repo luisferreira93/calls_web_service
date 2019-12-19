@@ -1,5 +1,8 @@
 package com.enterprise.luisferreira.utils;
 
+/**
+ * Enum class to represent the CallType.
+ */
 public enum CallType {
 
     INBOUND(0),
@@ -7,7 +10,7 @@ public enum CallType {
 
     private int type;
 
-    CallType(int type){
+    CallType(int type) {
         this.type = type;
     }
 

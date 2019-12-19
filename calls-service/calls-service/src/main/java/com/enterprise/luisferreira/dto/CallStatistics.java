@@ -25,7 +25,7 @@ public class CallStatistics {
      * Sets the value of the dayStatistics property.
      *
      * @param dayStatistics allowed object is
-     *              {@link List }
+     *                      {@link List }
      */
     public void setStatistics(List<DayStatistics> dayStatistics) {
         this.dayStatistics = dayStatistics;

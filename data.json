@@ -1,0 +1,53 @@
+{
+  "calls": [
+    {
+      "callType": "INBOUND",
+      "calleeNumber": "916821260",
+      "callerNumber": "917101905",
+      "endTimestamp": "2019-12-17T11:00:00",
+      "startTimestamp": "2019-12-17T09:00:00"
+    },
+    {
+      "callType": "INBOUND",
+      "calleeNumber": "916821260",
+      "callerNumber": "917765432",
+      "endTimestamp": "2019-12-17T13:00:00",
+      "startTimestamp": "2019-12-17T12:30:00"
+    },
+    {
+      "callType": "OUTBOUND",
+      "calleeNumber": "916821260",
+      "callerNumber": "919695497",
+      "endTimestamp": "2018-02-06T20:00:00",
+      "startTimestamp": "2018-02-06T18:30:00"
+    },
+    {
+      "callType": "OUTBOUND",
+      "calleeNumber": "919695497",
+      "callerNumber": "916821260",
+      "endTimestamp": "2019-04-10T10:00:00",
+      "startTimestamp": "2019-12-10T09:00:00"
+    },
+    {
+      "callType": "OUTBOUND",
+      "calleeNumber": "912345678",
+      "callerNumber": "987654321",
+      "endTimestamp": "2019-12-18T09:00:00",
+      "startTimestamp": "2019-12-18T08:00:00"
+    },
+    {
+      "callType": "INBOUND",
+      "calleeNumber": "912345678",
+      "callerNumber": "987654321",
+      "endTimestamp": "2015-12-18T09:00:00",
+      "startTimestamp": "2019-12-18T08:50:00"
+    },
+    {
+      "callType": "OUTBOUND",
+      "calleeNumber": "976453212",
+      "callerNumber": "976453211",
+      "endTimestamp": "2019-04-18T09:00:00",
+      "startTimestamp": "2012-04-18T09:45:00"
+    }
+  ]
+}
