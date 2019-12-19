@@ -1,7 +1,9 @@
 package com.enterprise.luisferreira.webservices;
 
+import com.enterprise.luisferreira.dto.CallStatistics;
+import com.enterprise.luisferreira.exceptions.CommonException;
 import com.enterprise.luisferreira.services.CallsService;
-import com.enterprise.luisferreira.utils.CallList;
+import com.enterprise.luisferreira.dto.CallList;
 import com.enterprise.luisferreira.utils.CallType;
 import com.enterprise.luisferreira.utils.MessageType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -14,6 +16,10 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Path("")
 public class CallsResource {
@@ -71,10 +77,34 @@ public class CallsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/retrieve")
-    public String getCall(@QueryParam("limit") int limit,
-                             @QueryParam("offset") int offset,
-                             @QueryParam("callType") final CallType callType) {
-        callsService.retrieveCalls(limit, offset, callType);
-        return MessageType.SUCCESS.getMessage();
+    public List getCall(@DefaultValue("0") @QueryParam("limit") int limit,
+                        @DefaultValue("0") @QueryParam("offset") int offset,
+                        @QueryParam("callType") final CallType callType) {
+        List calls = new ArrayList();
+        try {
+            calls = callsService.retrieveCalls(limit, offset, callType);
+        } catch (CommonException e) {
+            e.printStackTrace();
+        }
+        return calls;
+    }
+
+    @Operation(summary = "Get Statistics for a certain amount of days",
+            description = "Use this service to retrieve statistics of calls")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "Successful operation"),
+            @APIResponse(responseCode = "400", description = "Request parameters not acceptable"),
+            @APIResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/statistics")
+    public Response getStatistics(@QueryParam("startDate") String startDate,
+                                        @QueryParam("endDate") String endDate) {
+        return Response.status(Response.Status.OK)
+                .entity(callsService.getStatistics(startDate, endDate))
+                .type(MediaType.APPLICATION_JSON)
+                .build();
     }
 }

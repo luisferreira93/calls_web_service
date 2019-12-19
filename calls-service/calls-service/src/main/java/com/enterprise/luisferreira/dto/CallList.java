@@ -1,6 +1,7 @@
-package com.enterprise.luisferreira.utils;
+package com.enterprise.luisferreira.dto;
 
 import com.enterprise.luisferreira.database.Call;
+import com.enterprise.luisferreira.utils.CallType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,10 +17,19 @@ public class CallList implements Serializable {
     @JsonProperty("calls")
     private List<Call> calls;
 
+    /**
+     * Gets the value of the calls property.
+     */
     public List<Call> getCalls() {
         return calls;
     }
 
+    /**
+     * Sets the value of the calls property.
+     *
+     * @param calls allowed object is
+     *              {@link List }
+     */
     public void setCalls(List<Call> calls) {
         this.calls = calls;
     }

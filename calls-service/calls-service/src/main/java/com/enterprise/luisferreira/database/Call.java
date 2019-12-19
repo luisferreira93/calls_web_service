@@ -10,6 +10,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Entity to represent the Call table.
+ */
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Call extends PanacheEntityBase {
@@ -42,45 +45,93 @@ public class Call extends PanacheEntityBase {
         this.callType = callType;
     }
 
+    /**
+     * Default Constructor.
+     */
     public Call() {
     }
 
+    /**
+     * Gets the value of the callerNumber property.
+     */
     public String getCallerNumber() {
         return callerNumber;
     }
 
+    /**
+     * Sets the value of the callerNumber property.
+     *
+     * @param callerNumber allowed object is
+     *              {@link String }
+     */
     public void setCallerNumber(String callerNumber) {
         this.callerNumber = callerNumber;
     }
 
+    /**
+     * Gets the value of the calleeNumber property.
+     */
     public String getCalleeNumber() {
         return calleeNumber;
     }
 
+    /**
+     * Sets the value of the calleeNumber property.
+     *
+     * @param calleeNumber allowed object is
+     *              {@link String }
+     */
     public void setCalleeNumber(String calleeNumber) {
         this.calleeNumber = calleeNumber;
     }
 
+    /**
+     * Gets the value of the startTimestamp property.
+     */
     public Date getStartTimestamp() {
         return startTimestamp;
     }
 
+    /**
+     * Sets the value of the startTimestamp property.
+     *
+     * @param startTimestamp allowed object is
+     *              {@link Date }
+     */
     public void setStartTimestamp(Date startTimestamp) {
         this.startTimestamp = startTimestamp;
     }
 
+    /**
+     * Gets the value of the endTimestamp property.
+     */
     public Date getEndTimestamp() {
         return endTimestamp;
     }
 
+    /**
+     * Sets the value of the endTimestamp property.
+     *
+     * @param endTimestamp allowed object is
+     *              {@link Date }
+     */
     public void setEndTimestamp(Date endTimestamp) {
         this.endTimestamp = endTimestamp;
     }
 
+    /**
+     * Gets the value of the callType property.
+     */
     public CallType getCallType() {
         return callType;
     }
 
+    /**
+     * Sets the value of the callType property.
+     *
+     * @param callType allowed object is
+     *              {@link CallType }
+     */
     public void setCallType(CallType callType) {
         this.callType = callType;
     }
