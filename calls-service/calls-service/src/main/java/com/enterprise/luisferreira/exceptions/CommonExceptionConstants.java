@@ -17,7 +17,12 @@ public enum CommonExceptionConstants {
   /**
    * Thrown if a content does not exist.
    */
-  CALL_NOT_FOUND(Status.NO_CONTENT);
+  CALL_NOT_FOUND(Status.NO_CONTENT),
+
+  /**
+   * Thrown if a date inserted is in the wrong format.
+   */
+  WRONG_FORMAT(Status.BAD_REQUEST);
 
 
   private final Status statusCode;

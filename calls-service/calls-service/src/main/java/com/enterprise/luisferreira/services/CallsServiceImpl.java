@@ -33,7 +33,7 @@ public class CallsServiceImpl implements CallsService {
 
   @Transactional
   @Override
-  public void processCalls(CallList calls) {
+  public void createCalls(CallList calls) {
     for (Call call : calls.getCalls()) {
       createCall(call);
     }
@@ -63,7 +63,7 @@ public class CallsServiceImpl implements CallsService {
           .type(MediaType.APPLICATION_JSON)
           .build();
     } catch (CommonException e) {
-      return null;
+      return Response.status(e.getReason().getStatusCode()).entity(e.getMessage()).build();
     }
   }
 
@@ -84,9 +84,10 @@ public class CallsServiceImpl implements CallsService {
           .type(MediaType.APPLICATION_JSON)
           .build();
     } catch (ParseException e) {
-      e.printStackTrace();
+      return Response.status(Response.Status.BAD_REQUEST)
+          .entity("The date inserted is in the " + "wrong format. It must be yyyy-MM-dd")
+          .build();
     }
-    return Response.noContent().build();
   }
 
   private CallStatistics collectStats(List<Call> calls) {

@@ -7,11 +7,11 @@ import javax.ws.rs.core.Response;
 
 public interface CallsService {
 
-    void processCalls(CallList calls);
+    void createCalls(CallList calls);
 
     void deleteCall(Long callId) throws CommonException;
 
-    Response retrieveCalls(int limit, int offset, CallType callType) throws CommonException;
+    Response retrieveCalls(int limit, int offset, CallType callType);
 
     Response getStatistics(String startDate, String endDate);
 }
