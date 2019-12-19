@@ -4,25 +4,17 @@ import com.enterprise.luisferreira.dto.CallList;
 import com.enterprise.luisferreira.exceptions.CommonException;
 import com.enterprise.luisferreira.services.CallsService;
 import com.enterprise.luisferreira.utils.CallType;
-
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("")
 public class CallsResource {
@@ -85,6 +77,9 @@ public class CallsResource {
             @QueryParam("offset")
                     int offset,
             @QueryParam("callType") final CallType callType) {
+        LOG.info("Retrieve request for calls has been received and it is being processed. "
+                        + "limit={}, offset={}, CallType={}",
+                limit, offset, callType);
         return callsService.retrieveCalls(limit, offset, callType);
     }
 
@@ -102,6 +97,9 @@ public class CallsResource {
                     String startDate,
             @QueryParam("endDate")
                     String endDate) {
+        LOG.info("Statistics request for an interval of days has been received and it is being processed. "
+                        + "startDate={}, endDate={}",
+                startDate, endDate);
         return callsService.getStatistics(startDate, endDate);
     }
 

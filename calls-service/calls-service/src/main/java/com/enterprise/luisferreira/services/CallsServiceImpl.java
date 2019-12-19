@@ -9,15 +9,13 @@ import com.enterprise.luisferreira.exceptions.CommonExceptionConstants;
 import com.enterprise.luisferreira.utils.CallType;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -43,6 +41,8 @@ public class CallsServiceImpl implements CallsService {
     @Override
     public void createCalls(CallList calls) {
         for (Call call : calls.getCalls()) {
+            LOG.info("Creating call. callType={}, callerNumber={}, calleeNumber={}",
+                    call.getCallType(), call.getCallerNumber(), call.getCalleeNumber());
             createCall(call);
         }
     }
@@ -113,7 +113,7 @@ public class CallsServiceImpl implements CallsService {
                     .build();
         } catch (ParseException | CommonException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("The date inserted is in the " + "wrong format. It must be yyyy-MM-dd")
+                    .entity("The date inserted is in the wrong format. It must be yyyy-MM-dd")
                     .build();
         }
     }
@@ -277,6 +277,8 @@ public class CallsServiceImpl implements CallsService {
      */
     private List<Call> processList(PanacheQuery<Call> retrieveCallList, int limit, int offset)
             throws CommonException {
+        LOG.info("Filtering the list of calls. limit={}, offset={}, callList={}",
+                limit, offset, retrieveCallList.list());
         validatePagination(limit, offset, retrieveCallList);
         List<Call> calls = retrieveCallList.list();
         if (limit != DEFAULT_PAGINATION_VALUE && offset == DEFAULT_PAGINATION_VALUE) {

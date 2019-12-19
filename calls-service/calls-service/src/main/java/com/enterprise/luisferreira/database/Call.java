@@ -1,9 +1,7 @@
 package com.enterprise.luisferreira.database;
 
 import com.enterprise.luisferreira.utils.CallType;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
