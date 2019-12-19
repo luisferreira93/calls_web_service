@@ -78,3 +78,5 @@ The previous step was meant to be done in a docker container but due to lack of 
 
 Notes
 - There is a file "data.json" to use as an example for the /create endpoint.
+- The Google's code conventions were used.
+- The dates are in ISO 8601 format.
