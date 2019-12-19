@@ -31,6 +31,11 @@ public class CallsServiceImpl implements CallsService {
 
   private static final Logger LOG = LoggerFactory.getLogger(CallsServiceImpl.class);
 
+  /**
+   * This method inserts calls in the database.
+   *
+   * @param calls {@link CallList} with a list of Call to be inserted.
+   */
   @Transactional
   @Override
   public void createCalls(CallList calls) {
@@ -39,6 +44,11 @@ public class CallsServiceImpl implements CallsService {
     }
   }
 
+  /**
+   * This method delete calls in the database.
+   *
+   * @param callId {@link Long} the identifier of the call to be deleted.
+   */
   @Transactional
   @Override
   public void deleteCall(Long callId) throws CommonException {
@@ -52,6 +62,14 @@ public class CallsServiceImpl implements CallsService {
     call.delete();
   }
 
+  /**
+   * Method to retrieve a certain amount of calls with pagination.
+   *
+   * @param limit {@link Integer} defines the maximum results to return.
+   * @param offset {@link Integer} an int to define where the list starts.
+   * @param callType {@link CallType} the callType to filter.
+   * @return returns a Response {@link Response} wuith the information.
+   */
   @Override
   public Response retrieveCalls(int limit, int offset, CallType callType) {
     try {
@@ -67,6 +85,13 @@ public class CallsServiceImpl implements CallsService {
     }
   }
 
+  /**
+   * This method returns the statistics in a certain interval of dates.
+   *
+   * @param startDate {@link Date} the beginning of the interval.
+   * @param endDate {@link Date} the end of the interval.
+   * @return a Response {@link Response} wuith the information.
+   */
   @Override
   public Response getStatistics(String startDate, String endDate) {
     try {
@@ -90,6 +115,13 @@ public class CallsServiceImpl implements CallsService {
     }
   }
 
+  /**
+   * Method to parse the statistics.
+   *
+   * @param calls {@link List} a list with the calls to process.
+   * @return a CallStatistics object {@link CallStatistics} with the information.
+   *
+   */
   private CallStatistics collectStats(List<Call> calls) {
     List<DayStatistics> dayStats = new ArrayList<>();
     for (Call call : calls) {
@@ -121,6 +153,12 @@ public class CallsServiceImpl implements CallsService {
     return callStatistics;
   }
 
+  /**
+   * Method to process the cost of a call.
+   *
+   * @param call {@link Call} the call to calculate the costs.
+   * @return a value {@link Double} with the costs.
+   */
   private Double processCost(Call call) {
     int callType = call.getCallType().getType();
     Double totalCost = 0.0;
@@ -136,18 +174,37 @@ public class CallsServiceImpl implements CallsService {
     return totalCost;
   }
 
+  /**
+   * Inserts the caller number in a map and counts the calls.
+   *
+   * @param callerNumberCalls a map {@link Map} with the already existing information to update.
+   * @param call the call {@link Call} to update the Map.
+   */
   private void processCallerNumber(Map<String, Long> callerNumberCalls, Call call) {
     callerNumberCalls.putIfAbsent(call.getCallerNumber(), (long) 0);
     callerNumberCalls.put(call.getCallerNumber(),
         callerNumberCalls.get(call.getCallerNumber()) + 1);
   }
 
+  /**
+   * Inserts the callee number in a map and counts the calls.
+   *
+   * @param calleeNumberCalls a map {@link Map} with the already existing information to update.
+   * @param call the call {@link Call} to update the Map.
+   */
   private void processCalleeNumber(Map<String, Long> calleeNumberCalls, Call call) {
     calleeNumberCalls.putIfAbsent(call.getCalleeNumber(), (long) 0);
     calleeNumberCalls.put(call.getCalleeNumber(),
         calleeNumberCalls.get(call.getCalleeNumber()) + 1);
   }
 
+  /**
+   * Method to calculate the duration of a call based on the type.
+   *
+   * @param typeDurations a map {@link Map} to update the information regarding CallType
+   * {@link CallType}.
+   * @param call the call {@link Call} to process.
+   */
   private void processDurationType(Map<String, Long> typeDurations, Call call) {
     if (call.getCallType().getType() == 0) {
       typeDurations.putIfAbsent("INBOUND", (long) 0);
@@ -160,14 +217,34 @@ public class CallsServiceImpl implements CallsService {
     }
   }
 
+  /**
+   * Calculates the duration of a call.
+   *
+   * @param call the call {@link Call} to calculate the duration.
+   * @return a value {@link Long} with the duration.
+   */
   private Long calculateDuration(Call call) {
     return Math.abs(call.getEndTimestamp().getTime() - call.getStartTimestamp().getTime());
   }
 
+  /**
+   * Auxiliary method to convert milliseconds to minutes.
+   *
+   * @param time a variable {@link Long} with the time to convert.
+   * @return a variable {@link Long} with the time in minutes.
+   */
   private long convertMillisecondsToMinutes(long time) {
     return time / 60000;
   }
 
+  /**
+   * This method checks if a certain date ios between an interval of dates.
+   *
+   * @param call the call {@link Call} with the date to check.
+   * @param startDate {@link Date} the beginning of the interval.
+   * @param endDate {@link Date} the end of the interval.
+   * @return a boolean {@link Boolean} with the response.
+   */
   private boolean checkDate(Call call, Date startDate, Date endDate) {
     try {
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -179,6 +256,15 @@ public class CallsServiceImpl implements CallsService {
     return false;
   }
 
+  /**
+   * Method to paginate a list.
+   *
+   * @param retrieveCallList a query request result {@link PanacheQuery}.
+   * @param limit {@link Integer} defines the maximum results to return.
+   * @param offset {@link Integer} an int to define where the list starts.
+   * @return
+   * @throws CommonException
+   */
   private List<Call> processList(PanacheQuery<Call> retrieveCallList, int limit, int offset)
       throws CommonException {
     validatePagination(limit, offset, retrieveCallList);
