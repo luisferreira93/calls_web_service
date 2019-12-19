@@ -52,6 +52,22 @@ public class Call extends PanacheEntityBase {
     }
 
     /**
+     * Gets the value of the id property.
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Sets a new value for id.
+     *
+     * @param id new value to be set.
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
      * Gets the value of the callerNumber property.
      */
     public String getCallerNumber() {
